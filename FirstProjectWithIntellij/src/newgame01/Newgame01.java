@@ -3,6 +3,8 @@ package newgame01;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.scene.Camera;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,6 +17,8 @@ public class Newgame01 extends Application {
 
     private boolean isLeft, isRight, isUp, isDown;
     private ImageView player = new ImageView(new Image(Newgame01.class.getResourceAsStream("player.png")));
+    private ImageView backimage = new ImageView(new Image(Newgame01.class.getResourceAsStream("newmap01.png")));
+    private Camera camera = new PerspectiveCamera();
 
     public static void main(String[] args) {
         launch(args);
@@ -37,6 +41,9 @@ public class Newgame01 extends Application {
 //        ImageView player = new ImageView(new Image(Newgame01.class.getResourceAsStream("player.png")));
 //        player.setImage(image);
 
+        root.getChildren().add(backimage);
+        player.setX(300);
+        player.setY(200);
         root.getChildren().add(player);
 
         scene.setOnKeyPressed(event -> {
@@ -92,6 +99,15 @@ public class Newgame01 extends Application {
         if(isRight) { player.setX(player.getX()+ move_unit);}
         if(isUp)    { player.setY(player.getY()- move_unit);}
         if(isDown)  { player.setY(player.getY()+ move_unit);}
+        
+        camera_move();
+    }
+
+    private void camera_move() {
+        if(isLeft){ camera.setTranslateX(camera.getTranslateX()-12);}
+        if(isRight){ camera.setTranslateX(camera.getTranslateX()+12);}
+        if(isUp){ camera.setTranslateY(camera.getTranslateY()-12);}
+        if(isDown){ camera.setTranslateY(camera.getTranslateY()+12);}
     }
 
 
